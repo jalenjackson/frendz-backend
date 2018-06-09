@@ -1,0 +1,19 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  port: 5432
+  username: jajackson
+  password: Neworleans504!!!Bigships1!!!
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+development:
+  <<: *default
+  database: frendz_dev
+test:
+  <<: *default
+  database: frendz_dev
+production:
+  <<: *default
+  database: frendz_production
+  username: frendz
+  password: <%= ENV['FRENDZ-BACKEND_DATABASE_PASSWORD'] %>
