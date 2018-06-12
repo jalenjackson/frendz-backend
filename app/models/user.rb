@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  reverse_geocoded_by :latitude, :longitude
+  has_many :interests
+
   after_create :update_access_token!
 
   private

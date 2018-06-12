@@ -27,6 +27,8 @@ gem  'pry'
 gem 'active_model_serializers', require: true
 
 gem 'rack-cors'
+
+gem 'geocoder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

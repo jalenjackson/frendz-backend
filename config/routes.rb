@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   namespace :v1, defaults: { format: :json } do
     post 'login', to: 'sessions#login'
     post 'sign_up', to: 'sessions#sign_up'
+    post 'matches', to: 'sessions#fetch_matches'
+    post 'update_user', to: 'sessions#update_user'
   end
 end
