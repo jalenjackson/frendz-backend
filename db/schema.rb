@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_06_12_000914) do
     t.string "work_place"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
+    t.string "gender_preference"
     t.string "access_token"
     t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true

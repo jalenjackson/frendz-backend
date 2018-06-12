@@ -22,13 +22,22 @@ module V1
 
     def update_user
       user = current_user
-      user.name = params[:name]
+      user.name = params[:name] if params[:name]
+      user.job_title = params[:job_title] if params[:job_title]
+      if params[:interest]
+        user.interests.create(interest: params[:interest])
+        render json: user.interests
+      end
       user.save
     end
 
     def fetch_matches
-      @users = User.near([params[:latitude], params[:longitude]], 50)
       user = current_user
+      user.latitude = params[:latitude].to_f
+      user.longitude = params[:longitude].to_f
+      user.save
+      @users = User.near([params[:latitude], params[:longitude]], 50)
+      render json: @users
     end
 
     private
