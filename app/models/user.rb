@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   reverse_geocoded_by :latitude, :longitude
   has_many :interests
+  has_many :images
 
   after_create :update_access_token!
 

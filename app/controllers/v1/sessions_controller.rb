@@ -28,6 +28,7 @@ module V1
         user.interests.create(interest: params[:interest])
         render json: user.interests
       end
+      user.gender_preference = params[:gender_preference]
       user.save
     end
 
@@ -37,7 +38,23 @@ module V1
       user.longitude = params[:longitude].to_f
       user.save
       @users = User.near([params[:latitude], params[:longitude]], 50)
-      render json: @users
+      users = []
+      @users.each do |user|
+        next if user.id == current_user.id
+        users << { user: user, interests: user.interests } unless (current_user.interests.collect(&:interest) & user.interests.collect(&:interest)).empty?
+      end
+      render json: users
+    end
+
+    def return_images
+      user = current_user
+      render json: user.images
+    end
+
+    def uploads
+      user = current_user
+      user.images.create(base_64: params[:base64_image_data])
+      user.save
     end
 
     private
@@ -52,7 +69,7 @@ module V1
       end
 
     def create_new_user
-      User.new(email: params[:email], password: params[:password], password_confirmation: params[:password], name: params[:name], work_field: params[:work_field], job_title: params[:job_title], work_place: params[:work_place], longitude: params[:longitude].to_f, latitude: params[:latitude].to_f)
+      User.new(email: params[:email], password: params[:password], password_confirmation: params[:password])
     end
   end
 end
